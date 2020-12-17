@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Fritz Gruppe</title>
+    <!-- Font Awesome -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+	<link href="./font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <!-- <link href="./css/bootstrap.min.css" rel="stylesheet"> -->
+    <!-- Material Design Bootstrap -->
+     <link href="./css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="./css/style.css" rel="stylesheet">
+	    <!-- Bootstrap core CSS -->
+	<link href="./css/compiled.min.css" rel="stylesheet">
+	<!-- <script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script> -->
+		<!-- firebase -->
+	<script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-database.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-firestore.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.5.0/firebase-messaging.js"></script>
+	<!-- angular -->
+	<script src="angular/angular.min.js"></script>
+	<script src="angular/angular-aria.js"></script>
+	<script src="angular/angular-animate.js"></script>
+	<script src="angular/script.js"></script>
+</head>
+
+<body class="fixed-sn light-blue-skin"> <!-- onload = "autoForm();" -->
+            
+    <!--Double navigation-->
+    <header>
+        
+        <!-- Sidebar navigation -->
+        <ul id="slide-out" class="side-nav fixed sn-bg-1 sidenav-bg custom-scrollbar">
+            <!-- Logo -->
+            <li class="logo-sn waves-effect">
+                <div class=" text-center"> 
+				
+                    <a href="#" class="pl-0">
+					<img src="https://mdbootstrap.com/img/Photos/Others/sidenav1.jpg " style="width: 200px;display:none">
+					<img src="./img/Fritzgruppe_png.png" style="width: 150px;">
+					</a>
+                </div>
+            </li>
+            <!--/. Logo -->
+
+            <!--Search Form-->
+            <li>
+                <form class="search-form" role="search">
+                    <div class="form-group waves-effect">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                </form>
+            </li>
+            <!--/.Search Form-->
+            <!-- Side navigation links -->
+            <li>
+                <ul class="collapsible collapsible-accordion">
+					<li><a href="index.html" class="collapsible-header waves-effect"><i class="fa fa-tachometer"></i>Dashboard</a></li>
+					<li><a href="index.html" class="collapsible-header waves-effect"><i class="fa fa-location-arrow"></i> Tracking</a></li>
+                    <li><a href="timeline.html" class="collapsible-header waves-effect"><i class="fa fa-calendar-check-o"></i>Timeline</a></li>
+                    <li><a href="Zeitplan.html" class="collapsible-header waves-effect"><i class="fa fa-calendar"></i> Fritz Zeitplan</a></li>
+                    <!-- <li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-tachometer"></i> Dashboards<i class="fa fa-angle-down rotate-icon"></i></a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li><a href="../dashboards/v-1.html" class="waves-effect active">Version 1</a>
+                                </li>
+                                <li><a href="../dashboards/v-2.html" class="waves-effect">Version 2</a>
+                                </li>
+                                <li><a href="../dashboards/v-3.html" class="waves-effect">Version 3</a>
+                                </li>
+                                <li><a href="../dashboards/v-4.html" class="waves-effect">Version 4</a>
+                                </li>
+                                <li><a href="../dashboards/v-5.html" class="waves-effect">Version 5</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-photo"></i> Pages<i class="fa fa-angle-down rotate-icon"></i></a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li><a href="../pages/login.html" class="waves-effect">Login</a>
+                                </li>
+                                <li><a href="../pages/register.html" class="waves-effect">Register</a>
+                                </li>
+                                <li><a href="../pages/pricing.html" class="waves-effect">Pricing</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li> -->
+                 
+                                  
+                </ul>
+            </li>
+            <!--/. Side navigation links -->
+            <div class="sidenav-bg mask-strong"></div>
+        </ul>
+        <!--/. Sidebar navigation -->
+
+        <!-- Navbar -->
+        <nav class="navbar fixed-top navbar-toggleable-md navbar-expand-lg scrolling-navbar double-nav">
+            <!-- SideNav slide-out button -->
+            <div class="float-left">
+                <a href="#" data-activates="slide-out" class="button-collapse black-text"><i class="fa fa-bars"></i></a>
+            </div>
+            <!-- Breadcrumb-->
+            <div class="breadcrumb-dn mr-auto">
+                <p>Fritz Gruppe</p>
+            </div>
+
+            <!--Navbar links-->
+            <ul class="nav navbar-nav nav-flex-icons ml-auto">
+
+                <!-- Dropdown -->
+                <li class="nav-item dropdown notifications-nav">
+                    <a class="nav-link dropdown-toggle waves-effect" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <span class="badge red">2</span> <i class="fa fa-bell"></i>
+                        <span class="d-none d-md-inline-block">Benachrichtigungen</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">
+                            <i class="fa fa-money mr-2" aria-hidden="true"></i>
+                            <span>Fahrer 1 in xxxx</span>
+                            <span class="float-right"><i class="fa fa-clock-o" aria-hidden="true"></i> 13 min</span>
+                        </a>
+                        <a class="dropdown-item" href="#">
+                            <i class="fa fa-money mr-2" aria-hidden="true"></i>
+                            <span>Fahrer 2 in xxxx</span>
+                            <span class="float-right"><i class="fa fa-clock-o" aria-hidden="true"></i> 33 min</span>
+                        </a>
+                        <a class="dropdown-item" href="#">
+                            <i class="fa fa-line-chart mr-2" aria-hidden="true"></i>
+                            <span>Fahrer 3 bei xxxx</span>
+                            <span class="float-right"><i class="fa fa-clock-o" aria-hidden="true"></i> 53 min</span>
+                        </a>
+                    </div>
+                </li>
+                <!-- <li class="nav-item"> -->
+                    <!-- <a class="nav-link waves-effect"><i class="fa fa-envelope"></i> <span class="clearfix d-none d-sm-inline-block">Contact</span></a> -->
+                <!-- </li> -->
+                <!-- <li class="nav-item"> -->
+                    <!-- <a class="nav-link waves-effect"><i class="fa fa-comments-o"></i> <span class="clearfix d-none d-sm-inline-block">Support</span></a> -->
+                <!-- </li> -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle waves-effect" href="#" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-user"></i> <span class="clearfix d-none d-sm-inline-block">Profile</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="#">Log Out</a>
+                        <a class="dropdown-item" href="#" >Mein Konto </a><input  id="konto" value="Suliman Farzat"></input>
+                    </div>
+                </li>
+
+            </ul>
+            <!--/Navbar links-->
+        </nav>
+        <!-- /.Navbar -->
+
+    </header>
+	
+	<main>
+		<div class="container-fluid">  <!-- mt-5 -->
+		
+			<section>
+				<div class="row form-elegant">
+
+                    <!-- Fahrer 1 - Grid column-->
+                    <div class="col-lg-3 col-md-6 mb-r">
+
+                        <!--Card-->
+                        <div class="card card-cascade narrower cascading-admin-card">
+								
+                            <!--Card image-->
+                            <div class="view red admin-up" id="fahrer1OnOff">
+							  <i class="fa fa-truck"></i>
+							  <span class="mb-0"><fahrer1></fahrer1></span>
+                            </div>
+                            <!--/Card image-->
+
+                            <!--Card content-->
+                            <div class="card-body text-center">
+                                <span class="min-chart my-1">
+									<mafiF1></mafiF1><hr>
+									<trailerF1></trailerF1>
+									<fahrer1OnOff></fahrer1OnOff>
+								</span>
+                            </div>
+                            <!--/.Card content-->
+							<small><span class="grey-text float-right"><i class="fa fa-clock-o" aria-hidden="true"></i> <zeitF1></zeitF1> &nbsp; </span></small>
+
+                        </div>
+                        <!--/.Card-->
+                    </div>
+                    <!--Grid column-->
+
+                    <!--  Fahrer 2 - Grid column-->
+                    <div class="col-lg-3 col-md-6 mb-r">
+                        <!--Card-->
+                        <div class="card card-cascade narrower cascading-admin-card">
+                            <!--Card image-->
+                            <div class="view red admin-up" id="fahrer2OnOff">
+								<i class="fa fa-truck"></i>
+                                <span class="mb-0"><fahrer2></fahrer2></span>
+                            </div>
+                            <!--/Card image-->
+                            <!--Card content-->
+                            <div class="card-body text-center">
+                                <span class="min-chart my-1">
+									<mafiF2></mafiF2><hr>
+									<trailerF2></trailerF2>
+									<fahrer2OnOff></fahrer2OnOff>
+								</span>
+                            </div>
+                            <!--/.Card content-->
+							<small><span class="grey-text float-right"><i class="fa fa-clock-o" aria-hidden="true"></i> <zeitF2></zeitF2> &nbsp; </span></small>
+                        </div>
+                        <!--/.Card-->
+                    </div>
+                    <!--Grid column-->
+
+                    <!-- Fahrer 3 - Grid column-->
+                    <div class="col-lg-3 col-md-6 mb-r">
+
+                        <!--Card-->
+                        <div class="card card-cascade narrower cascading-admin-card">
+
+                            <!--Card image-->
+                            <div class="view red admin-up"  id="fahrer3OnOff">
+								<i class="fa fa-truck"></i>
+                                <span class="mb-0"><fahrer3></fahrer3></span>
+                            </div>
+                            <!--/Card image-->
+
+                            <!--Card content-->
+                            <div class="card-body text-center">
+
+                                <span class="min-chart my-1">
+									<mafiF3></mafiF3><hr>
+									<trailerF3></trailerF3>
+									<fahrer3OnOff></fahrer3OnOff>
+								</span>
+
+                            </div>
+                            <!--/.Card content-->
+							<small><span class="grey-text float-right"><i class="fa fa-clock-o" aria-hidden="true"></i> <zeitF3></zeitF3> &nbsp; </span></small>
+                        </div>
+                        <!--/.Card-->
+
+                    </div>
+                    <!--Grid column-->
+					
+					 <!--Grid column-->
+                    <div class="col-lg-3 col-md-12 mb-r">
+
+                        <!--Card-->
+                        <div class="card card-cascade narrower cascading-admin-card">
+
+                            <!--Card image-->
+                            <div class="view red admin-up"  id="fahrer4OnOff">
+								<i class="fa fa-truck"></i>
+                                <span class="mb-0"><fahrer4></fahrer4></span>
+                            </div>
+                            <!--/Card image-->
+
+                            <!--Card content-->
+                            <div class="card-body text-center">
+
+                                <span class="min-chart my-1">
+									<mafiF4></mafiF4><hr>
+									<trailerF4></trailerF4>
+									<fahrer4OnOff></fahrer4OnOff>
+								</span>
+                            </div>
+                            <!--/.Card content-->
+							<small><span class="grey-text float-right"><i class="fa fa-clock-o" aria-hidden="true"></i> <zeitF4></zeitF4> &nbsp; </span></small>
+                        </div>
+                        <!--/.Card-->
+                    </div>
+                    <!--Grid column-->
+
+                </div>
+			</section>
+
+			 <section class="pb-5">
+
+                <!--Card-->
+                <div class="card card-cascade narrower">
+					<!--Card image-->
+                    <div class="view gradient-card-header btn-deep-orange">
+                        <h5 id="capture" class="mb-0">Tourenplanung Unelever</h5>
+                    </div>
+                    <!--/Card image-->
+
+                    <!--Card content-->
+                    <div class="card-body text-center">
+                        <!--Google map-->
+                        <div id="map" class="z-depth-1" style="height:700px"></div>
+                    </div>
+                    <!--/.Card content-->
+
+                </div>
+            </section>
+
+			<section class="form-elegant row mb-5">			          
+				<!-- Form contact -->
+					<div class="col-lg-5 col-md-5">
+						<div class="card card-cascade cascading-admin-card">
+                            <!--Card Data-->
+                            <div class="admin-up">
+                                <i class="fa fa-comments green darken-32 view"></i>
+								<div class="data">
+									<p class="h5 text-center">Chating mit dem  
+										<label id="selectFahrer" for="mdb-select" > xxx</label> <i class="fa fa-user prefix grey-text"></i>
+									</p> 
+									 <!-- <input type="TextBox" ID="selectFahrer" Class="form-control"></input> -->
+								</div>
+                            </div>
+							<div class="card-body">
+								<div class="md-form mb-5 form-inline" id="mdb-select">
+										<div class="form-group" >
+											<input value="Fahrer 1" name="group1" type="radio" id="f1" checked="checked">
+											<label for="f1">Fahrer 1</label>
+										</div>
+										<div class="form-group">
+											<input value="Fahrer 2" name="group1" type="radio" id="f2">
+											<label for="f2">Fahrer 2</label>
+										</div>
+										<div class="form-group">
+											<input value="Fahrer 3" name="group1" type="radio" id="f3">
+											<label for="f3">Fahrer 3</label>
+										</div>
+										<div class="form-group">
+											<input value="Fahrer 4" name="group1" type="radio" id="f4">
+											<label for="f4">Fahrer 4</label>
+										</div>
+								</div>
+								
+								<div class="row">
+									<div class="col-md-6">
+
+										<div id="recieveChat" class="card info-color lighten-2 text-center z-depth-2 mb-2 white-text"></div>
+									</div>
+									<div class="col-md-6">
+										<!--/.Card Primary-->
+										<br><br>
+										<!--Card Danger-->
+										<div id="sendChat" class="card mdb-color lighten-2 text-center z-depth-2 mb-2 white-text"></div>
+										<!-- <div class="card pink lighten-2 text-center z-depth-2"> -->
+											<!-- <div class="card-body"> -->
+												<!-- <p id="results" class="white-text mb-0">mein chat</p> -->
+											<!-- </div> -->
+										<!-- </div> -->
+									</div>
+								</div>
+								<div class="md-form">
+									<i class="fa fa-pencil prefix grey-text"></i>
+									<textarea type="text" id="fahrerChat" value="" class="md-textarea" style="height: 80px"></textarea>
+									<label for="form8">Ihre Nachricht</label>
+								</div>
+
+								<div class="text-center">
+									<button class="btn btn-deep-orange" id="post" onclick="writeNewPost();">Sent <i class="fa fa-paper-plane-o ml-1"></i></button>
+								</div>
+								<div class="modal-footer pt-3 mb-1">
+									<p class="font-small grey-text d-flex justify-content-end">xxxxxxxx <a href="#" class="blue-text ml-1">  <code>xxxxxxxxxxxx</code> </a></p>
+								</div>
+							</div>
+                        </div>
+					
+					</div>
+				<!-- Form contact -->	
+				<!--/.Card-->
+				<div class="col-lg-4 col-md-4">		
+					<div class="card card-cascade cascading-admin-card">
+                        <!--Card Data-->
+                        <div class="admin-up">
+                            <i class="fa fa-truck blue darken-3 view"></i>
+                            <div class="data">
+                                <p id="fahrer">Fahrer</p>
+                            </div>
+                        </div>
+					
+							
+							<br>
+						
+							 
+							 <br>
+							<!--  <div ng-app="formExample"> 
+							 <div ng-controller="ExampleController" class="md-form mb-5 form-inline" id="mdb-select">
+									 <form novalidate class="simple-form form-group" action="javascript:void(0)">
+										<input ng-model="user.f1" value="Fahrer 1" name="group2" type="radio" id="f11">
+											<label for="f11">Fahrer1</label>
+										<input ng-model="user.f2" value="Fahrer 2" name="group2" type="radio" id="f22">
+											<label for="f22">Fahrer2</label>	
+							 
+<button ng-click ="radioChecked()" ng-model='master'>Click to Check </button>
+									<input type="button" ng-click="reset()" value="Reset" />
+								  </form> {{selectedGender}}
+								  <pre>user = {{user | json}}</pre>
+									<span ng-if="user" class="animate-if">
+									  schon checked
+									</span>
+								</div>
+								</div> -->
+								
+								
+								<br>
+								
+								 
+								 
+								 
+								 
+								 
+								
+						
+                    </div>
+				</div>	
+				
+				<div class="col-lg-3 col-md-3 list-group view mb-4">
+				  <a href="#" class="list-group-item gradient-card-header btn-deep-orange white-text card">
+						Die Überschriften der Listen in der Datenbank
+				  </a>
+				  <a id="listUl"></a>
+				</div> 					
+			</section>
+            <!--Section: Satellite map-->
+
+		</div>
+	</main>
+	
+	          
+<!--Footer-->
+<footer class="page-footer center-on-small-only unique-color-dark pt-0">
+
+    <!-- Copyright-->
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            © 2017 All Rights Reserved: <a href="https://www.fritz-gruppe.de"><strong>  Fritz Gruppe www.fritz-gruppe.de</strong></a>
+						 Entwickelt von: Suliman Farzat 
+        </div>
+    </div>
+    <!--/.Copyright -->
+    
+</footer>
+<!--/.Footer-->
+                
+    <!-- /Start your project here-->
+
+    <!-- SCRIPTS -->
+    <script type="text/javascript" src="./js/compiled.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <!-- <script type="text/javascript" src="./js/popper.min.js"></script> -->
+	<!-- <script  type="text/javascript" src="./assets/js/vendor/popper.min.js"></script> -->
+    <!-- Bootstrap core JavaScript -->
+    <!-- <script type="text/javascript" src="./js/bootstrap.min.js"></script> -->
+    <!-- MDB core JavaScript -->
+    <!-- <script type="text/javascript" src="./js/mdb.min.js"></script> -->
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!-- <script src="./assets/js/ie10-viewport-bug-workaround.js"></script> -->
+	<!-- google map -->
+	<script src="./js/firebaseMap.js"> </script>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlmrF0hKpQ9Rn5NrZS93Qjqnr4TmTILnc&libraries=visualization&ext=.js&callback=initMap"></script>
+	
+
+<script>
+  angular.module('formExample', [])
+    .controller('ExampleController', ['$scope', function($scope) {
+      $scope.master = {};
+
+      /*$scope.update = function(user) {
+        $scope.master = angular.copy(user);
+      };*/
+	 $scope.radioChecked = function() {	  
+		if(!$scope.user){
+		   $scope.user = true;
+		   
+		}else{
+		   $scope.user = false;
+		}
+	  }  
+
+      $scope.reset = function(user) {
+        $scope.user = angular.copy(user); //angular.copy($scope.master);
+		//alert(user);
+      };
+
+      $scope.reset();
+    }]);
+	//console.log(user.preference);
+</script>
+
+
+	 <script>
+		toastr.options = {
+		"closeButton": true, // true/false
+		"positionClass": "toast-bottom-right", // toast-top-right / toast-top-left / toast-bottom-right / toast-bottom-left
+		}
+        new WOW().init();
+    
+     
+        $(".button-collapse").sideNav();
+        var el = document.querySelector('.custom-scrollbar');
+        Ps.initialize(el);
+
+        // Data Picker Initialization
+        // $('.datepicker').pickadate();
+
+        // Material Select Initialization
+        $(document).ready(function () {
+            $('.mdb-select').material_select();
+			//$('selectFahrer').text =$('.mdb-select').value ;
+        });
+
+        // Tooltips Initialization
+       /* $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })*/
+
+    </script>
+
+</body>
+
+</html>
