@@ -1,0 +1,91 @@
+
+	 // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDW53TK4MH4NE4dEHBGOhDc3zDBAJP5MNk",
+    authDomain: "fritz-planer.firebaseapp.com",
+    databaseURL: "https://fritz-planer.firebaseio.com",
+    projectId: "fritz-planer",
+  };
+	firebase.initializeApp(config);
+
+	// Initialize Cloud Firestore through Firebase
+	var db = firebase.firestore();
+
+//add
+db.collection("users").add({
+    first: "Ada",
+    last: "Lovelace",
+    born: 1815
+})
+.then(function(docRef) {
+    console.log("Document written with ID: ", docRef.id);
+	//console.log(scheduler.toJSON());
+})
+.catch(function(error) {
+    console.error("Error adding document: ", error);
+});
+
+// Add a second document with a generated ID.
+db.collection("users").add({
+    first: "Alan",
+    middle: "Mathison",
+    last: "Turing",
+    born: 1912
+})
+.then(function(docRef) {
+    console.log("Document written with ID: ", docRef.id);
+})
+.catch(function(error) {
+    console.error("Error adding document: ", error);
+});
+
+
+
+
+var citiesRef = db.collection("cities");
+
+citiesRef.doc("SF").set({
+    name: "San Francisco", state: "CA", country: "USA",
+    capital: false, population: 860000 });
+citiesRef.doc("LA").set({
+    name: "Los Angeles", state: "CA", country: "USA",
+    capital: false, population: 3900000 });
+citiesRef.doc("DC").set({
+    name: "Washington, D.C.", state: null, country: "USA",
+    capital: true, population: 680000 });
+citiesRef.doc("TOK").set({
+    name: "Tokyo", state: null, country: "Japan",
+    capital: true, population: 9000000 });
+citiesRef.doc("BJ").set({
+    name: "Beijing", state: null, country: "China",
+    capital: true, population: 21500000 });
+	
+	
+
+//get
+/*var docRef = db.collection("cities").doc("SF");
+
+docRef.get().then(function(doc) {
+    if (doc.exists) {
+        console.log("Document data:", doc.data());
+    } else {
+        console.log("No such document!");
+    }
+}).catch(function(error) {
+    console.log("Error getting document:", error);
+});*/
+
+ var sam;
+			 var valueArray = function () {
+					 sam = doc.data();
+					console.log("Current data: ", doc && doc.data().color);
+					return sam;
+				};
+
+			db.collection("zeitplan").doc("1").onSnapshot(valueArray);
+
+	
+	
+	
+
+	

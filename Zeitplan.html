@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Fritz Zeitplan</title>
+    <!-- Font Awesome -->
+	<link href="./font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    
+    
+  	<script src='ext/dhtmlxscheduler.js' type="text/javascript" charset="utf-8"></script>
+	<script src='ext/dhtmlxscheduler_treetimeline.js' type="text/javascript" charset="utf-8"></script>
+	<script src="ext/dhtmlxscheduler_limit.js" type="text/javascript" charset="utf-8"></script>
+	<script src='ext/dhtmlxscheduler_timeline.js' type="text/javascript" charset="utf-8"></script>
+	<script src="ext/dhtmlxscheduler_units.js" type="text/javascript" charset="utf-8"></script>
+	<script src="ext/dhtmlxscheduler_multiselect.js" type="text/javascript" charset="utf-8"></script>
+	<script src='ext/dhtmlxscheduler_tooltip.js' type="text/javascript" charset="utf-8"></script>
+	<script src="ext/dhtmlxscheduler_pdf.js" type="text/javascript" charset="utf-8"></script>
+	<script src="ext/dhtmlxscheduler_grid_view.js"></script>
+	<script src="ext/dhtmlxscheduler_agenda_view.js" ></script>
+	<script src="ext/dhtmlxscheduler_minical.js" ></script>
+	<script src="ext/dhtmlxscheduler_quick_info.js"></script>
+	<!-- dhtmlxScheduler-Firebase adapter -->
+	<script type="text/javascript" src="ext/dhtmlx_scheduler_firebase.js"></script>
+
+	<script src="ext/dhtmlxscheduler_serialize.js" type="text/javascript" charset="utf-8"></script>
+
+	<!-- sparche -->
+	<script src="ext/locale/locale_de.js" type="text/javascript"></script>
+	<script src="ext/locale/recurring/locale_recurring_de.js" ></script>
+
+	<!-- <link rel='stylesheet' type='text/css' href='ext/w3.css'> -->
+	<link rel='stylesheet' type='text/css' href='ext/dhtmlxscheduler.css'>
+	<link href="./css/mdb.min.css" rel="stylesheet">
+	<link href="./css/style.css" rel="stylesheet">
+    <link href="./css/compiled.min.css" rel="stylesheet">
+<style type="text/css" >
+
+.dhx_cal_event div.dhx_footer,
+		.dhx_cal_event.past_event div.dhx_footer,
+		.dhx_cal_event.event_english div.dhx_footer,
+		.dhx_cal_event.event_math div.dhx_footer,
+		.dhx_cal_event.event_science div.dhx_footer{
+			background-color: transparent !important;
+		}
+		.dhx_cal_event .dhx_body{
+			-webkit-transition: opacity 0.1s!important;
+			transition: opacity 0.1s!important;
+			opacity: 0.7 !important;
+		}
+		.dhx_cal_event .dhx_title{
+			line-height: 12px!important;
+		}
+		.dhx_cal_event_line:hover,
+		.dhx_cal_event:hover .dhx_body,
+		.dhx_cal_event.selected .dhx_body,
+		.dhx_cal_event.dhx_cal_select_menu .dhx_body{
+			opacity: 1!important;
+		}
+
+		.dhx_cal_event.event_math div, .dhx_cal_event_line.event_math{
+			background-color: orange !important;
+			border-color: #a36800 !important;
+		}
+		.dhx_cal_event_clear.event_math{
+			color:orange !important;
+		}
+
+		.dhx_cal_event.event_science div, .dhx_cal_event_line.event_science{
+			background-color: #36BD14 !important;
+			border-color: #698490 !important;
+		}
+		.dhx_cal_event_clear.event_science{
+			color:#36BD14 !important;
+		}
+
+		.dhx_cal_event.event_english div, .dhx_cal_event_line.event_english{
+			background-color: #FC5BD5 !important;
+			border-color: #839595 !important;
+		}
+		.dhx_cal_event_clear.event_english{
+			color:#B82594 !important;
+		}
+		select {
+			display:inline-block !important;
+		}
+</style>
+
+
+
+
+<!-- <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script> -->
+<!-- <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-auth.js"></script> -->
+<!-- <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-database.js"></script> -->
+<!-- <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase-firestore.js"></script> -->
+
+<!-- FireBase -->
+<script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+
+<script>
+  // Initialize Firebase
+ /* var config = {
+    apiKey: "AIzaSyDW53TK4MH4NE4dEHBGOhDc3zDBAJP5MNk",
+    authDomain: "fritz-planer.firebaseapp.com",
+    databaseURL: "https://fritz-planer.firebaseio.com",
+    projectId: "fritz-planer",
+    storageBucket: "fritz-planer.appspot.com",
+    messagingSenderId: "459373803570"
+  };
+  firebase.initializeApp(config);*/
+</script>
+<script type="text/javascript" charset="utf-8">
+
+ 
+
+	function init() {	
+	
+		scheduler.config.multi_day = true;
+		scheduler.config.multisection = true;
+		scheduler.templates.tooltip_date_format=scheduler.date.date_to_str("%d.%m.%Y %H:%i"); 
+		//scheduler.xy.min_event_height = 50;//sets the height of the X-Axis
+		scheduler.templates.event_bar_text= scheduler.date.date_to_str("%H:%i");
+		//scheduler.templates.event_text=  scheduler.templates.event_text;
+		scheduler.templates.agenda_date = "%d.%m.%Y %H:%i";
+		scheduler.locale.labels.timeline_tab = "Timeline";
+		scheduler.locale.labels.section_subject = "Subject";
+		scheduler.locale.labels.section_custom="Section";
+		scheduler.config.details_on_create=true;
+		scheduler.config.details_on_dblclick=true;
+		// scheduler.config.xml_date="%d.%m.%Y %H:%i";
+		scheduler.config.event_duration = 45;
+		scheduler.config.full_day = true;
+		scheduler.config.limit_time_select = true;
+		scheduler.locale.labels.grid_tab = "Tabellen";
+		scheduler.locale.labels.agenda_tab="Agenda";
+		
+		//default definition
+
+
+	
+		//Aktionen
+		scheduler.templates.event_class=function(start, end, event){
+				var css = "";
+				if(event.subject) // if event has subject property then special class should be assigned
+					css += "event_"+event.subject;
+
+				if(event.id == scheduler.getState().select_id){
+					css += " selected";
+				}
+				return css; // default return
+
+				/*
+					Note that it is possible to create more complex checks
+					events with the same properties could have different CSS classes depending on the current view:
+
+					var mode = scheduler.getState().mode;
+					if(mode == "day"){
+						// custom logic here
+					}
+					else {
+						// custom logic here
+					}
+				*/
+			};
+			var subject = [
+				{ key: '', label: 'Entladung' },
+				{ key: 'english', label: 'Beladung' },
+				{ key: 'math', label: 'xxxx' },
+				{ key: 'science', label: 'xxxx' }
+			];
+			
+			//time counter
+			scheduler.attachEvent("onMouseMove", function(id, ev){
+			var obj = scheduler.getActionData(ev);
+			//console.log(obj.section)
+			document.getElementById('log').innerHTML = "Klicken auf "+obj.date+"<br>section:"+obj.section;
+		})
+
+		
+		//===============
+		//Configuration
+		//===============
+		
+		elements = [ // original hierarhical array to display
+			{key:10, label:"Logistik 1", open: true, children: [
+				{key:20, label:"BöHö 1"},
+				/*{key:30, label:"Bechtle", open: true, children: [
+					{key:40, label:"Rampe 1"},
+					{key:50, label:"Halle 4"}
+				]}, */
+				{key:30, label:"Bechtle"},
+			]},
+			{key:40, label:"Logistik 2", open: true, children:[
+				{key:50, label:"Chemie"},
+				{key:60, label:"Böhö 3"}
+			]},
+			{key:70, label:"Spedition 1", open: true, children:[
+				{key:80, label:"Nahverkehr"},
+				{key:90, label:"Stückgut"}
+			]},
+			{key:100, label:"Spedition 2", open: true, children:[
+				{key:110, label:"Verteil Zentrum"},
+				{key:120, label:"X"}
+			]}
+		];
+		
+		scheduler.createTimelineView({
+			section_autoheight: false,
+			name:	"timeline",
+			x_unit:	"minute",
+			x_date:	"%H:%i",
+			x_step:	60,
+			x_size: 24,
+			x_start: 3,
+			x_length: 48,
+			y_unit: elements,
+			y_property:	"section_id",
+			render: "tree",
+			folder_dy:20,
+			folder_events_available: true,
+			dy:60
+		});
+		
+		
+		//Pause	
+		scheduler.addMarkedTimespan({
+				//start_date: new Date(), //2017, 8, 6, 7, 30
+				//end_date: new Date(),
+				type:"dhx_time_block",
+				days:  new Date(), 
+				zones: [7*64.3, 8*63.7, 17*65.3, 18*65], 
+				css: "w3-pale-red",
+				html:"<center><b>Pause</b></center>",//draws a DIV with this text over the marked 
+				sections: {
+					timeline: [20,30], //[10, 20,30,40,50,60,70,80], // only 1 section
+					unit: 4
+				} 
+			});
+		scheduler.addMarkedTimespan({
+				type:"dhx_time_block",
+				days:  new Date(), 
+				zones: [9*63.4, 10*63, 19*61.6, 20*61.5], 
+				css: "yellow_section",
+				html:"<b>Pause</b>",//draws a DIV with this text over the marked 
+				sections: {
+					timeline: [50,60], //[10, 20,30,40,50,60,70,80], // only 1 section
+					unit: 2
+				} 
+			});	
+		scheduler.addMarkedTimespan({
+				type:"dhx_time_block",
+				days:  new Date(), 
+				zones: [8*63.75, 9*63.33, 18*61.7, 19*61.55], 
+				css: "",
+				html:"<b>Pause</b>",//draws a DIV with this text over the marked 
+				sections: {
+					timeline: [80,90], //[10, 20,30,40,50,60,70,80], // only 1 section
+					unit: 4
+				} 
+			});	
+		
+		scheduler.createUnitsView({
+			name:"unit",
+			property:"section_id",
+			list:elements
+		}); 
+
+		//grid view
+		scheduler.createGridView({
+			   name:"grid",
+			   paging:true,
+			   step:2,
+			   fields:[    // defines columns of the grid
+					 {id:"id",   label:'Id',   sort:'int',  width:400,  align:'right'},
+					 {id:"date", label:'Date', sort:'date', width:'*'},
+					 {id:"text", label:'Text', sort:'str',  width:'*', align:'left'},
+					 {id:"date",label:'Date',template:function(start,end,ev){return "1# "+ev.text}}
+			   ],
+			   from:new Date(),//left border of the allowable date range
+			   to:new Date()    //right border of the allowable date range
+		});
+		//default definition
+		scheduler.templates.grid_date = function(start, end){
+			return scheduler.templates.day_date(start)
+			+ " - "
+			+ scheduler.templates.day_date(end);
+		};
+
+
+
+		//===============
+		//Data loading
+		//===============
+		scheduler.config.lightbox.sections=[	
+			{name:"description", height:130, map_to:"text", type:"textarea" , focus:true},
+			{name:"custom", height:23, type:"timeline", options:null , map_to:"section_id" } //type should be the same as name of the tab
+			//{name:"time", height:72, type:"time", map_to:"auto"}
+			,
+			{name:"Aktionen", height:23, type:"select", options: subject, map_to:"subject" },
+			{name:"time", height:72, type:"time", map_to:"auto" }
+			];
+
+		//scheduler.load("data/events.xml");
+		//scheduler.load("data/data.json","json");
+		//scheduler.init('scheduler_here',new Date(),"timeline"); //2017,7,07
+		/*scheduler.parse([
+		//Mafi 1
+			{ start_date: new Date().setHours(3 , 0, 0), end_date: new Date().setHours(7 , 30, 0), text:"Fahrer 1", section_id:20, color: 'red'},
+			{ start_date: new Date().setHours(8 , 30, 0), end_date: new Date().setHours(13 , 0, 0), text:"Fahrer 1", section_id:20},
+
+						
+			{ start_date: new Date().setHours(13 , 0, 0), end_date: new Date().setHours(18 , 30, 0), text:"Fahrer 3", section_id:30},
+			{ start_date: new Date().setHours(19 , 30, 0), end_date: new Date().setHours(23 , 0, 0), text:"Fahrer 3", section_id:30},
+
+		//Mafi 2				
+			{ start_date: new Date().setHours(5 , 0, 0), end_date: new Date().setHours(9 , 30, 0), text:"Fahrer 2", section_id:50},
+			{ start_date: new Date().setHours(10 , 30, 0), end_date: new Date().setHours(15 , 0, 0), text:"Fahrer 2", section_id:50},
+
+			{ start_date: new Date().setHours(15 , 0, 0), end_date: new Date().setHours(19 , 30, 0), text:"Fahrer 4", section_id:60},
+			{ start_date: new Date().setHours(20 , 30, 0), end_date: new Date().setHours(26 , 0, 0), text:"Fahrer 4", section_id:60},
+		
+		//SZM 1
+			{ start_date: new Date().setHours(4 , 0, 0), end_date: new Date().setHours(8 , 30, 0), text:"Fahrer 5", section_id:80},
+			{ start_date: new Date().setHours(9 , 30, 0), end_date: new Date().setHours(14 , 0, 0), text:"Fahrer 5", section_id:80},
+		
+			{ start_date: new Date().setHours(14 , 0, 0), end_date: new Date().setHours(18 , 30, 0), text:"Fahrer 6", section_id:90},
+			{ start_date: new Date().setHours(19 , 30, 0), end_date: new Date().setHours(24 , 0, 0), text:"Fahrer 6", section_id:90},
+
+		],"json");*/
+		
+		// new
+		
+		scheduler.init("scheduler_here");
+		
+		var data = new Firebase("https://fritz-planer.firebaseio.com/"),
+        events = data.child("events");
+
+		scheduler.firebase(events);
+
+	}
+	
+	
+	function show() {
+		alert(scheduler.toJSON());
+	}
+	function save() {
+		var form = document.forms[0];
+		form.action = "./data/json_writer.php";
+		form.elements.data.value = scheduler.toJSON();
+		form.submit();
+	}
+	function download() {
+		var form = document.forms[0];
+		form.action = "./data/json_download.php";
+		form.elements.data.value = scheduler.toJSON();
+		form.submit();
+	}
+
+</script>  
+</head>
+
+<body class="fixed-sn light-blue-skin" onload="init();">
+            
+    <!--Double navigation-->
+    <header>
+        
+        <!-- Sidebar navigation -->
+        <ul id="slide-out" class="side-nav fixed sn-bg-1 sidenav-bg custom-scrollbar">
+            <!-- Logo -->
+            <li class="logo-sn waves-effect">
+                <div class=" text-center">
+                    <a href="#" class="pl-0"><img src="./img/Fritzgruppe_png.png" class="" style="width: 150px;"></a>
+                </div>
+            </li>
+            <!--/. Logo -->
+
+            <!--Search Form-->
+            <li>
+                <form class="search-form" role="search">
+                    <div class="form-group waves-effect">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                </form>
+            </li>
+            <!--/.Search Form-->
+            <!-- Side navigation links -->
+            <li>
+                <ul class="collapsible collapsible-accordion">
+					<li><a href="index.html" class="collapsible-header waves-effect"><i class="fa fa-tachometer"></i>Dashboard</a></li>
+					<li><a href="index.html" class="collapsible-header waves-effect"><i class="fa fa-location-arrow"></i> Tracking</a></li>
+                    <li><a href="timeline.html" class="collapsible-header waves-effect"><i class="fa fa-calendar-check-o"></i>Timeline</a></li>
+                    <li><a href="Zeitplan.html" class="collapsible-header waves-effect"><i class="fa fa-calendar"></i> Fritz Zeitplan</a></li>
+					
+                </ul>
+            </li>
+            <!--/. Side navigation links -->
+            <div class="sidenav-bg mask-strong"></div>
+        </ul>
+        <!--/. Sidebar navigation -->
+
+        <!-- Navbar -->
+        <nav class="navbar fixed-top navbar-toggleable-md navbar-expand-lg scrolling-navbar double-nav">
+            <!-- SideNav slide-out button -->
+            <div class="float-left">
+                <a href="#" data-activates="slide-out" class="button-collapse black-text"><i class="fa fa-bars"></i></a>
+            </div>
+            <!-- Breadcrumb-->
+            <div class="breadcrumb-dn mr-auto">
+                <p>Fritz Gruppe</p>
+            </div>
+
+            <!--Navbar links-->
+            <ul class="nav navbar-nav nav-flex-icons ml-auto">
+
+                <!-- Dropdown -->
+                <li class="nav-item dropdown notifications-nav">
+      
+	  
+                </li>
+
+                <li class="nav-item dropdown">
+               
+			   
+                </li>
+
+            </ul>
+            <!--/Navbar links-->
+        </nav>
+        <!-- /.Navbar -->
+
+    </header>
+	
+	<main style="margin:0 !important">
+	
+	<div style='height:20px; padding:5px 10px;'>
+		<!-- <input type="button" name="download" value="Download" onclick="download()" style="right:500px;" /> -->
+		<input type="button" name="show" value="Anzeige Angaben" onclick="show()" style="right:400px;" />
+		<!-- <input type="button" name="save" value="Save" onclick="save()" style="right:300px;" /> -->
+	</div>
+	
+	
+	<div class="container-fluid">
+				 <section class="pb-5">
+				 <div class="card card-cascade narrower">
+					<div id="scheduler_here" class="dhx_cal_container" style='width:100%; height:700px;'>
+						<div class="dhx_cal_navline">
+							<div class='dhx_cal_export pdf' id='export_pdf' title='xxxx' onclick='scheduler.toPDF("http://dhtmlxscheduler.appspot.com/export/pdf", "color")'>&nbsp;</div>
+							<div class="dhx_cal_prev_button">&nbsp;</div>
+							<div class="dhx_cal_next_button">&nbsp;</div>
+							<div class="dhx_cal_today_button"></div>
+							<div class="dhx_cal_date"></div>
+							
+							<div class="dhx_cal_tab w3-border-orange" name="agenda_tab"></div>
+							<div class="dhx_cal_tab w3-border-orange" name="grid_tab"></div>
+							
+							<div class="dhx_cal_tab" name="day_tab" style="right:204px;"></div>
+							<div class="dhx_cal_tab" name="week_tab" style="right:140px;"></div>
+							<div class="dhx_cal_tab" name="timeline_tab" style="right:280px;"></div>
+							<div class="dhx_cal_tab" name="month_tab" style="right:76px;"></div>
+						</div>
+						<div class="dhx_cal_header">
+						</div>
+						<div class="dhx_cal_data">
+						</div>		
+					</div>
+					<div id='log' style='position:absolute; width:400px; right:30px; bottom:10px; height:28px; font-size:12px; background-color:white;'></div>	
+				</div>
+				</section>
+	</div>
+	</main>
+	
+	<!--Footer-->
+<footer class="page-footer center-on-small-only unique-color-dark pt-0">
+
+    <!-- Copyright-->
+    <div class="footer-copyright">
+        <div class="container-fluid">
+            © 2017 All Rights Reserved: <a href="https://www.fritz-gruppe.de"><strong>  Fritz Gruppe www.fritz-gruppe.de</strong></a>
+						 Entwickelt von: Suliman Farzat 
+        </div>
+    </div>
+    <!--/.Copyright -->
+    
+</footer>
+
+	<!-- JQuery -->
+    <script type="text/javascript" src="./js/compiled.min.js"></script>
+	 <script>
+      // SideNav Initialization
+        new WOW().init();
+        $(".button-collapse").sideNav();
+        var el = document.querySelector('.custom-scrollbar');
+        Ps.initialize(el);
+    </script>
+	<script>		
+		$(document).ready(function() {
+			$(".dropdown-toggle").dropdown();
+		});
+    </script>
+	
+
+<script>
+
+
+</script>
+
+
+</body>
+
+</html>
